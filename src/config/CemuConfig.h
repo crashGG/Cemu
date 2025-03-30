@@ -208,16 +208,17 @@ typedef sint16 ControllerHotkey_t;
 struct sHotkeyCfg
 {
 	uKeyboardHotkey keyboard{WXK_NONE};
+	ControllerHotkey_t controller{-1}; // -1 = disabled
 
 	/* for defaults */
-	sHotkeyCfg(const uKeyboardHotkey& keyboard = {WXK_NONE}) :
-		keyboard(keyboard){};
+	sHotkeyCfg(const uKeyboardHotkey& keyboard = {WXK_NONE}, const ControllerHotkey_t& controller = {-1}) :
+		keyboard(keyboard), controller(controller) {};
 
 	/* for reading from xml */
 	sHotkeyCfg(const char* xml_values)
 	{
 		std::istringstream iss(xml_values);
-		iss >> keyboard.raw;
+		iss >> keyboard.raw >> controller;
 	}
 };
 
@@ -226,7 +227,7 @@ struct fmt::formatter<sHotkeyCfg> : formatter<string_view>
 {
 	template <typename FormatContext>
 	auto format(const sHotkeyCfg c, FormatContext &ctx) const {
-		std::string xml_values = fmt::format("{}", c.keyboard.raw);
+		std::string xml_values = fmt::format("{} {}", c.keyboard.raw, c.controller);
 		return formatter<string_view>::format(xml_values, ctx);
 	}
 };
@@ -542,6 +543,7 @@ struct CemuConfig
 	// hotkeys
 	struct
 	{
+		sHotkeyCfg modifiers;
 		sHotkeyCfg toggleFullscreen;
 		sHotkeyCfg toggleFullscreenAlt;
 		sHotkeyCfg exitFullscreen;
