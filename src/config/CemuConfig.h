@@ -548,6 +548,7 @@ struct CemuConfig
 		sHotkeyCfg toggleFullscreenAlt;
 		sHotkeyCfg exitFullscreen;
 		sHotkeyCfg takeScreenshot;
+		sHotkeyCfg toggleFastForward;
 	} hotkeys{};
 
 	// debug
