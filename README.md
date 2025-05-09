@@ -36,6 +36,8 @@ Pre-2.0 releases can be found on Cemu's [changelog page](https://cemu.info/chang
 
 To compile Cemu yourself on Windows, Linux or macOS, view [BUILD.md](/BUILD.md).
 
+注意：win x64 在本地构建中尝试改为clang编译器，但是部分组件会报错。所以用msvc编译器加 avx2 参数优化方式获取最大优化。
+
 ## Issues
 
 Issues with the emulator should be filed using [GitHub Issues](https://github.com/cemu-project/Cemu/issues).  
